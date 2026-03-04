@@ -1,9 +1,11 @@
-#Construir uma calculadora com todas as operações aritméticas.
+# Construir uma calculadora com todas as operações aritméticas.
 
-bottom_plus = 0
-bottom_minus = 0
-bottom_equals = 0
+plus_btn = 0
+minus_btn = 0
+nultiplication_btn = 0
+equal_btn = 0
+clear_btn = False
 
 teste = input('Teste pararara: ')
-if bottom_plus:
+if plus_btn:
     print("Plus")
