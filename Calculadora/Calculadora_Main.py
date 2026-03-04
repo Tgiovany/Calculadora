@@ -1,5 +1,8 @@
 # Construir uma calculadora com todas as operações aritméticas.
 
+from tkinter import *
+from tkinter import ttk
+
 plus_btn = 0
 minus_btn = 0
 nultiplication_btn = 0
