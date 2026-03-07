@@ -6,6 +6,32 @@ from tkinter import ttk
 import tkinter as tk
 from PIL import Image, ImageTk
 
+# --- ROOT/HEAD ---
+root = tk.Tk()
+root.geometry ('470x300')
+root.title('Calculadora')
+
+# --- BACKGROUND CONFIG ---
+image_path = 'Images/Base-white.png' #caminho do png (arquivo bruto).
+image_original = Image.open(image_path) #carrega os dados do png.
+image_tk = None
+
+# --- FUNÇÃO DE DESGIN ---
+def redimensionar_fundo(event):
+    global image_tk #Pro python não apagar a imagem da memória
+
+    largura = event.width
+    altura = event.height
+
+    img_redimensionada = image_original.resize((largura, altura)), Image.LANCZOS)
+    image_tk = ImageTk.PhotoImage(img_redimensionada)
+
+    label_bg.config(image=image_tk)
+
+label_bg = tk.label(root)
+label_bg.place(x=0, y=0, relwidth=1, relheight=1)
+root.bind('<Configure>', redimensionar_fundo)
+root.mainloop()
 
 # --- FUNC AREA ---
 def mirror_lbl():
@@ -87,23 +113,6 @@ def dot_btn():
 def equal_btn():
     pass
 
-# --- ROOT/HEAD ---
-root = tk.Tk()
-root.geometry ('470x300')
-root.title('Calculadora')
-
-#background config
-image_path = 'Images/Base-white.png' #caminho do png (arquivo bruto).
-image_original = Image.open(image_path) #carrega os dados do png.
-image_tk = None
-
-def redimensionar_fundo(event):
-    global image_tk
-    image_tk = ImageTk.PhotoImage(image_original)
-
-imagem_tk = ImageTk.PhotoImage(image_original) #pega o bruto e converte para o formato TKinter.
-label_bg = tk.Label(root, image=imagem_tk, text='Calculadora', compound='center')
-label_bg.grid(row=0, column=0, )
 
 plus_btn = 0
 minus_btn = 0
