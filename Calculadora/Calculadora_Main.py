@@ -33,6 +33,14 @@ label_bg.place(x=0, y=0, relwidth=1, relheight=1)
 root.bind('<Configure>', redimensionar_fundo)
 root.mainloop()
 
+plus_btn = 0
+minus_btn = 0
+multiplication_btn = 0
+equal_btn = 0
+
+
+clear_btn = False
+
 # --- FUNC AREA ---
 def mirror_lbl():
     pass
@@ -114,13 +122,6 @@ def equal_btn():
     pass
 
 
-plus_btn = 0
-minus_btn = 0
-multiplication_btn = 0
-equal_btn = 0
-
-
-clear_btn = False
 
 # --- GENERAL VARIABLES ---
 
