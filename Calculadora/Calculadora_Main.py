@@ -1,51 +1,18 @@
 # Construir uma calculadora com todas as operações aritméticas.
-#Thomas - alteração gráfica dos widgets (label, btn e entry)
-#Gabriel - lógica
+# Thomas - alteração gráfica dos widgets (label, btn e entry)
+# Gabriel - lógica
 
-from tkinter import ttk
+# Construir uma calculadora com todas as operações aritméticas.
+
 import tkinter as tk
 from PIL import Image, ImageTk
 
-# --- ROOT/HEAD ---
-root = tk.Tk()
-root.geometry ('470x300')
-root.title('Calculadora')
-
-# --- BACKGROUND CONFIG ---
-image_path = 'Images/Base-white.png' #caminho do png (arquivo bruto).
-image_original = Image.open(image_path) #carrega os dados do png.
-image_tk = None
-
-# --- FUNÇÃO DE DESGIN ---
-def redimensionar_fundo(event):
-    global image_tk #Pro python não apagar a imagem da memória
-
-    largura = event.width
-    altura = event.height
-
-    img_redimensionada = image_original.resize((largura, altura)), Image.LANCZOS)
-    image_tk = ImageTk.PhotoImage(img_redimensionada)
-
-    label_bg.config(image=image_tk)
-
-label_bg = tk.label(root)
-label_bg.place(x=0, y=0, relwidth=1, relheight=1)
-root.bind('<Configure>', redimensionar_fundo)
-root.mainloop()
-
-plus_btn = 0
-minus_btn = 0
-multiplication_btn = 0
-equal_btn = 0
-
-
-clear_btn = False
 
 # --- FUNC AREA ---
 def mirror_lbl():
     pass
 
-
+# --- FUNC AREA ---
 def ac_btn():
     pass
 
@@ -122,6 +89,10 @@ def equal_btn():
     pass
 
 
+# --- ROOT/HEAD ---
+root = tk.Tk()
+root.title('Calculadora')
+root.geometry('300x470')
 
 # --- GENERAL VARIABLES ---
 
@@ -143,7 +114,6 @@ plus_btn_sz = [23, 60]
 
 
 # --- WIDGETS ---
-
 mirror = tk.Label(root, textvariable=mirror_var,)
 mirror.grid(row=0, column=0, columnspan=3)
 
