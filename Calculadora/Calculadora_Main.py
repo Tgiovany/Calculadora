@@ -2,10 +2,10 @@
 #Thomas - alteração gráfica dos widgets (label, btn e entry)
 #Gabriel - lógica
 
-##fonte: NotoSansMono_Condensed-Regular
-from tkinter import ttk
 import tkinter as tk
+from tkinter import ttk
 from PIL import Image, ImageTk
+import os
 
 # --- ROOT/HEAD ---
 root = tk.Tk()
@@ -59,201 +59,310 @@ def redimensionar_fundo(event): #lógica do redimensionamento
 
 root.bind('<Configure>', agendar_redimensionamento)
 
-png_n_1 = Image.open('assets/Png/number-1-btn.png') #lê o bruto
-conv_n_1 = ImageTk.PhotoImage(png_n_1)
-one = tk.Button(root, text='1', command=one_btn, compound='center', image=conv_n_1, borderwidth=0, highlightthickness=0)
 
+
+
+
+# --- FUNC AREA ---
+def ac_btn():
+    pass
+
+
+def ce_btn():
+    pass
+
+
+def percentage_btn():
+    pass
+
+
+def division_btn():
+    mirror_show('÷')
+
+
+def seven_btn():
+    mirror_show('7')
+
+
+def eight_btn():
+    mirror_show('8')
+
+
+def nine_btn():
+    mirror_show('9')
+
+
+def multiply_btn():
+    mirror_show('x')
+
+
+def four_btn():
+    mirror_show('4')
+
+
+def five_btn():
+    mirror_show('5')
+
+
+def six_btn():
+    mirror_show('6')
+
+
+def minus_btn():
+    mirror_show('-')
+
+
+def one_btn():
+    mirror_show('1')
+
+
+def two_btn():
+    mirror_show('2')
+
+
+def three_btn():
+    mirror_show('3')
+
+
+def plus_btn():
+    mirror_show('+')
+
+
+def zero_btn():
+    mirror_show('0')
+
+
+def dot_btn():
+    pass
+
+
+def equal_btn():
+    mirror_show('=', math_symbol)
+
+
+def mirror_show(num):
+    global math_symbol
+
+    if num in ['+', '-', 'x', '÷']:
+        mirror_list_stored = list(mirror_list)
+        math_symbol = num
+        mirror_list.clear()
+        print(mirror_list_stored)
+        print(mirror_list)
+        print(math_symbol)
+
+    if num == '=':
+        math_operation(math_symbol)
+        print(math_symbol)
+
+    if len(mirror_list) < 14:
+        if num in ['+', '-', 'x', '÷', '=']:
+            pass
+        else:
+            mirror_list.append(num)
+            mirror_var.set(mirror_list)
+            print(f'num press{mirror_list}')
+
+
+def math_operation(symbol):
+    if symbol == '+':
+        mirror_var.set(str(int(''.join(mirror_list_stored)) + int(''.join(mirror_list))))
+    if symbol == '-':
+        mirror_var.set(str(int(''.join(mirror_list_stored)) - int(''.join(mirror_list))))
+    if symbol == 'x':
+        mirror_var.set(str(int(''.join(mirror_list_stored)) * int(''.join(mirror_list))))
+    if symbol == '÷':
+        mirror_var.set(str(int(''.join(mirror_list_stored)) / int(''.join(mirror_list))))
+
+
+# --- GENERAL VARIABLES ---
+mirror_list = []
+mirror_list_stored = []
+math_symbol = ''
+mirror_var = tk.StringVar()
+
+pixel = tk.PhotoImage(width=1, height=1)
+# Essa var está sendo utilizada como espaçador em pixeis ao inves de ser
+# por caracter que é o padrão, ver o width e height dos Buttons
+small_btn_sz = [23, 20]
+small_btn_pd = [5]
+plus_btn_sz = [23, 60]
+# Como o pai é  C H A T O  na programação, eu acabei fazendo essas variáveis
+# para controlar o padding e tamanho dos btns.
+# "Ó, mas por qual motivo fazer assim?" você me perguntaria, simples:
+# Dessa forma, caso queiramos alterar o tamanho de todos os btns
+# simultaneamente, nós apenas modificamos uma vez dentro dessas variáveis e
+# refletirá para todos os btns correspondentes!
+# Sem a necessidade de ir botão por botão fazer as mods!
+
+
+# --- WIDGETS ---
+mirror = tk.Label(root, textvariable=mirror_var)
+mirror.grid(row=0, column=0, columnspan=3)
+
+ac = tk.Button(root, text='AC', command=ac_btn,
+               image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+               compound='center')
+ac.grid(row=1, column=0, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+ce = tk.Button(root, text='CE', command=ce_btn,
+               image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+               compound='center')
+ce.grid(row=1, column=1, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+percentage = tk.Button(root, text='%', command=percentage_btn,
+                       image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                       compound='center')
+percentage.grid(row=1, column=2, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+division = tk.Button(root, text='÷', command=division_btn,
+                     image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                     compound='center')
+division.grid(row=1, column=3, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+
+multiply = tk.Button(root, text='x', command=multiply_btn,
+                     image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                     compound='center')
+multiply.grid(row=2, column=3, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+plus = tk.Button(root, text='+', command=plus_btn,
+                 image=pixel, width=plus_btn_sz[0], height=plus_btn_sz[1],
+                 compound='center')
+plus.grid(row=4, column=3, rowspan=2, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+dot = tk.Button(root, text='.', command=dot_btn,
+                image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                compound='center')
+dot.grid(row=5, column=1, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+equal = tk.Button(root, text='=', command=equal_btn,
+                  image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                  compound='center')
+equal.grid(row=5, column=2, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+zero = tk.Button(root, text='0', command=zero_btn,
+                 image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                 compound='center')
+zero.grid(row=5, column=0, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+one = tk.Button(root, text='1', command=one_btn,
+                image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                compound='center')
 one.grid(row=4, column=0, padx=small_btn_pd[0], pady=small_btn_pd[0])
 
+two = tk.Button(root, text='2', command=two_btn,
+                image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                compound='center')
+two.grid(row=4, column=1, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+three = tk. Button(root, text='3', command=three_btn,
+                   image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                   compound='center')
+three.grid(row=4, column=2, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+four = tk.Button(root, text='4', command=four_btn,
+                 image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                 compound='center')
+four.grid(row=3, column=0, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+five = tk.Button(root, text='5', command=five_btn,
+                 image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                 compound='center')
+five.grid(row=3, column=1, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+six = tk.Button(root, text='6', command=six_btn,
+                image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                compound='center')
+six.grid(row=3, column=2, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+seven = tk.Button(root, text='7', command=seven_btn,
+                  image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                  compound='center')
+seven.grid(row=2, column=0, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+eight = tk.Button(root, text='8', command=eight_btn,
+                  image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                  compound='center')
+eight.grid(row=2, column=1, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+nine = tk.Button(root, text='9', command=nine_btn,
+                 image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                 compound='center')
+nine.grid(row=2, column=2, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+minus = tk.Button(root, text='-', command=minus_btn,
+                  image=pixel, width=small_btn_sz[0], height=small_btn_sz[1],
+                  compound='center')
+minus.grid(row=3, column=3, padx=small_btn_pd[0], pady=small_btn_pd[0])
+
+
+#--VISOR--
+png_visor = Image.open('assets/Png/Visor-white.png')
+conv_visor = png_visor.resize((380, 120), Image.Resampling.LANCZOS)
+foto_visor = ImageTk.PhotoImage(conv_visor)
+visor_label = tk.Label(
+    root,
+    image = foto_visor,
+    textvariable=mirror_var,
+    compound='center',
+    font=('NotoSansMono', 20, 'bold'),
+    fg='#4a5840',
+    bg='#D1D1D1',
+    borderwidth=0,
+    highlightthickness=0,)
+visor_label.grid(row=0, column=0, columnspan=4, sticky='nsew', padx=(20, 10),)
+
 # --- CARREGANDO OS PNGS DOS BUTTONS ---
-#--1--
-#png_n_1 = Image.open('assets/Png/number-1-btn.png') #lê o bruto
-#conv_n_1 = ImageTk.PhotoImage(png_n_1) #converte para o Python
-#btn_1 = tk.Button(root,
-                  #text='1',
-                  #image=conv_n_1,                           #png convertido para python
-                  #compound='center',                        #Coloca o texto no centro da imagem
-                  #borderwidth=0,                            #tira a borda padrão
-                  #highlightthickness=0,                     #Remove o contorno de seleção
-                  #command=one_btn)                          #mantem a função do Gabriel
-#--2--
-png_n_2 = Image.open('assets/Png/number-2-btn.png')
-conv_n_2 = ImageTk.PhotoImage(png_n_2)
-btn_2 = tk.Button(root,
-                  text='2',
-                  image=conv_n_2,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=two_btn)
-#--3--
-png_n_3 = Image.open('assets/Png/number-3-btn.png')
-conv_n_3 = ImageTk.PhotoImage(png_n_3)
-btn_3 = tk.Button(root,
-                  text='3',
-                  image=conv_n_3,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=three_btn)
-#--4--
-png_n_4 = Image.open('assets/Png/number-4-btn.png')
-conv_n_4 = ImageTk.PhotoImage(png_n_4)
-btn_4 = tk.Button(root,
-                  text='4',
-                  image=conv_n_4,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=four_btn)
-#--5--
-png_n_5 = Image.open('assets/Png/number-5-btn.png')
-conv_n_5 = ImageTk.PhotoImage(png_n_5)
-btn_5 = tk.Button(root,
-                  text='5',
-                  image=conv_n_5,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=five_btn)
-#--6--
-png_n_6 = Image.open('assets/Png/number-6-btn.png')
-conv_n_6 = ImageTk.PhotoImage(png_n_6)
-btn_6 = tk.Button(root,
-                  text='6',
-                  image=conv_n_6,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=six_btn)
-#--7--
-png_n_7 = Image.open('assets/Png/number-7-btn.png')
-conv_n_7 = ImageTk.PhotoImage(png_n_7)
-btn_7 = tk.Button(root,
-                  text='7',
-                  image=conv_n_7,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=seven_btn)
-#--8--
-png_n_8 = Image.open('assets/Png/number-8-btn.png')
-conv_n_8 = ImageTk.PhotoImage(png_n_8)
-btn_8 = tk.Button(root,
-                  text='8',
-                  image=conv_n_8,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=eight_btn)
-#--9--
-png_n_9 = Image.open('assets/Png/number-9-btn.png')
-conv_n_9 = ImageTk.PhotoImage(png_n_9)
-btn_9 = tk.Button(root,
-                  text='9',
-                  image=conv_n_9,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=nine_btn)
-#--0--
-png_n_0 = Image.open('assets/Png/number-0-btn.png')
-conv_n_0 = ImageTk.PhotoImage(png_n_0)
-btn_0 = tk.Button(root,
-                  text='0',
-                  image=conv_n_0,
-                  compound='center',
-                  borderwidth=0,
-                  highlightthickness=0,
-                  command=zero_btn)
-#--Plus--
-png_plus = Image.open('assets/Png/plus-btn.png')
-conv_plus = ImageTk.PhotoImage(png_plus)
-btn_plus = tk.Button(root,
-                     text='+',
-                     image=conv_plus,
-                     compound='center',
-                     borderwidth=0,
-                     highlightthickness=0,
-                     command=plus_btn)
-#--Minus--
-png_minus = Image.open('assets/Png/minus-btn.png')
-conv_minus = ImageTk.PhotoImage(png_minus)
-btn_minus = tk.Button(root,
-                      text='-',
-                      image=conv_minus,
-                      compound='center',
-                      borderwidth=0,
-                      highlightthickness=0,
-                      command=minus_btn)
-#--AC--
-png_ac = Image.open('assets/Png/AC-btn.png')
-conv_ac = ImageTk.PhotoImage(png_ac)
-btn_ac = tk.Button(root,
-                   text='AC',
-                   image=conv_ac,
-                   compound='center',
-                   borderwidth=0,
-                   highlightthickness=0,
-                   command=ac_btn)
-#--CE--
-png_ce = Image.open('assets/Png/CE-btn.png')
-conv_ce = ImageTk.PhotoImage(png_ce)
-btn_ce = tk.Button(root,
-                   text='CE',
-                   image=conv_ce,
-                   compound='center',
-                   borderwidth=0,
-                   highlightthickness=0,
-                   command=ce_btn)
-#--Percentage--
-png_percentage = Image.open('assets/Png/percentage-btn.png')
-conv_percentage = ImageTk.PhotoImage(png_percentage)
-btn_percentage = tk.Button(root,
-                           text='%',
-                           image=conv_percentage,
-                           compound='center',
-                           borderwidth=0,
-                           highlightthickness=0,
-                           command=percentage_btn)
-#--Division--
-png_division = Image.open('assets/Png/division-btn.png')
-conv_division = ImageTk.PhotoImage(png_division)
-btn_division = tk.Button(root,
-                         text='÷',
-                         image=conv_division,
-                         compound='center',
-                         borderwidth=0,
-                         highlightthickness=0,
-                         command=division_btn)
-#--Multiply--
-png_multiply = Image.open('assets/Png/multiply-btn.png')
-conv_multiply = ImageTk.PhotoImage(png_multiply)
-btn_multiply = tk.Button(root,
-                         text='x',
-                         image=conv_multiply,
-                         compound='center',
-                         borderwidth=0,
-                         highlightthickness=0,
-                         command=multiply_btn)
-#--Dot--
-png_dot = Image.open('assets/Png/dot-btn.png')
-conv_dot = ImageTk.PhotoImage(png_dot)
-btn_dot = tk.Button(root,
-                    text='.',
-                    image=conv_dot,
-                    compound='center',
-                    borderwidth=0,
-                    highlightthickness=0,
-                    command=dot_btn)
-#--Equal--
-png_equal = Image.open('assets/Png/equal-btn.png')
-conv_equal = ImageTk.PhotoImage(png_equal)
-btn_equal = tk.Button(root,
-                      text='=',
-                      image=conv_equal,
-                      compound='center',
-                      borderwidth=0,
-                      highlightthickness=0,
-                      command=equal_btn)
+
+fotos_botoes = {}
+
+def carregar_icone(nome_ficheiro):
+    caminho = f'assets/Png/{nome_ficheiro}'
+    img = Image.open(caminho)
+    if nome_ficheiro == 'plus_btn.png':
+            img = img.resize((85, 180), Image.Resampling.LANCZOS)
+    else:
+        img = img.resize((85, 85), Image.Resampling.LANCZOS)
+
+    return ImageTk.PhotoImage(img)
+
+lista_botoes = [
+    ('AC', 'AC-btn.png', 1, 0), ('CE', 'CE-btn.png', 1, 1),
+    ('%', 'percentage-btn.png', 1, 2), ('÷', 'division-btn.png', 1, 3),
+    ('7', 'number-7-btn.png', 2, 0), ('8', 'number-8-btn.png', 2, 1),
+    ('9', 'number-9-btn.png', 2, 2), ('x', 'multiply-btn.png', 2, 3),
+    ('4', 'number-4-btn.png', 3, 0), ('5', 'number-5-btn.png', 3, 1),
+    ('6', 'number-6-btn.png', 3, 2), ('-', 'minus-btn.png', 3, 3),
+    ('1', 'number-1-btn.png', 4, 0), ('2', 'number-2-btn.png', 4, 1),
+    ('3', 'number-3-btn.png', 4, 2), ('+', 'plus-btn.png', 4, 3),
+    ('0', 'number-0-btn.png', 5, 0), ('.', 'dot-btn.png', 5, 1),
+    ('=', 'equal-btn.png', 5, 2)]
+
+for texto, arquivo, linha, col in lista_botoes:
+    fotos_botoes[texto] = carregar_icone(arquivo)
+
+    r_span = 2 if texto == '+' else 1
+
+    btn = tk.Button(
+        root,
+        image=fotos_botoes[texto],
+        borderwidth=0,
+        highlightthickness=0,
+        bg='#D1D1D1',
+        activebackground='#D1D1D1',
+        # --- AQUI ESTÁ A CONEXÃO ---
+        command=lambda t=texto: equal_btn() if t == '=' else mirror_show(t)
+    )
+    btn.grid(row=linha, column=col, rowspan=r_span, sticky='nsew', padx=2, pady=2)
+
+    for i in range(4):
+        root.columnconfigure(i, weight=1)
+
+    for i in range(6):
+        root.rowconfigure(i, weight=1)
+
+
+
+
 root.mainloop()
