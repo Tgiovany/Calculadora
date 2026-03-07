@@ -9,10 +9,6 @@ from PIL import Image, ImageTk
 
 
 # --- FUNC AREA ---
-def mirror_lbl():
-    pass
-
-# --- FUNC AREA ---
 def ac_btn():
     pass
 
@@ -26,59 +22,59 @@ def percentage_btn():
 
 
 def division_btn():
-    pass
+    mirror_show('÷')
 
 
 def seven_btn():
-    pass
+    mirror_show('7')
 
 
 def eight_btn():
-    pass
+    mirror_show('8')
 
 
 def nine_btn():
-    pass
+    mirror_show('9')
 
 
 def multiply_btn():
-    pass
+    mirror_show('x')
 
 
 def four_btn():
-    pass
+    mirror_show('4')
 
 
 def five_btn():
-    pass
+    mirror_show('5')
 
 
 def six_btn():
-    pass
+    mirror_show('6')
 
 
 def minus_btn():
-    pass
+    mirror_show('-')
 
 
 def one_btn():
-    pass
+    mirror_show('1')
 
 
 def two_btn():
-    pass
+    mirror_show('2')
 
 
 def three_btn():
-    pass
+    mirror_show('3')
 
 
 def plus_btn():
-    pass
+    mirror_show('+')
 
 
 def zero_btn():
-    pass
+    mirror_show('0')
 
 
 def dot_btn():
@@ -86,7 +82,41 @@ def dot_btn():
 
 
 def equal_btn():
-    pass
+    mirror_show('=', math_symbol)
+
+
+def mirror_show(num, *math_symbol):
+
+    if num in ['+', '-', 'x', '÷']:
+        mirror_list_stored = list(mirror_list)
+        math_symbol = num
+        mirror_list.clear()
+        print(mirror_list_stored)
+        print(mirror_list)
+        print(math_symbol)
+
+    if num == '=':
+        math_operation(math_symbol)
+        print(math_symbol)
+
+    if len(mirror_list) < 14:
+        if num in ['+', '-', 'x', '÷', '=']:
+            pass
+        else:
+            mirror_list.append(num)
+            mirror_var.set(mirror_list)
+            print(f'num press{mirror_list}')
+
+
+def math_operation(symbol):
+    if symbol == '+':
+        mirror_var.set(str(int(''.join(mirror_list_stored)) + int(''.join(mirror_list))))
+    if symbol == '-':
+        mirror_var.set(str(int(''.join(mirror_list_stored)) - int(''.join(mirror_list))))
+    if symbol == 'x':
+        mirror_var.set(str(int(''.join(mirror_list_stored)) * int(''.join(mirror_list))))
+    if symbol == '÷':
+        mirror_var.set(str(int(''.join(mirror_list_stored)) / int(''.join(mirror_list))))
 
 
 # --- ROOT/HEAD ---
@@ -95,8 +125,10 @@ root.title('Calculadora')
 root.geometry('300x470')
 
 # --- GENERAL VARIABLES ---
-
-mirror_var = tk.StringVar
+mirror_list = []
+mirror_list_stored = []
+math_symbol = ''
+mirror_var = tk.StringVar()
 
 pixel = tk.PhotoImage(width=1, height=1)
 # Essa var está sendo utilizada como espaçador em pixeis ao inves de ser
@@ -110,11 +142,11 @@ plus_btn_sz = [23, 60]
 # Dessa forma, caso queiramos alterar o tamanho de todos os btns
 # simultaneamente, nós apenas modificamos uma vez dentro dessas variáveis e
 # refletirá para todos os btns correspondentes!
-# Sem a necessidade te ir botão por botão fazer as mods!
+# Sem a necessidade de ir botão por botão fazer as mods!
 
 
 # --- WIDGETS ---
-mirror = tk.Label(root, textvariable=mirror_var,)
+mirror = tk.Label(root, textvariable=mirror_var)
 mirror.grid(row=0, column=0, columnspan=3)
 
 ac = tk.Button(root, text='AC', command=ac_btn,
