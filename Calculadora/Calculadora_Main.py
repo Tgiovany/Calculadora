@@ -50,27 +50,51 @@ def nine_btn():
 
 
 def ac_btn():
-    pass
+    mirror_list_stored.set('')
+    mirror_list.clear()
 
 
 def ce_btn():
-    pass
+    mirror_list.clear()
 
 
 def percentage_btn():
+    # if not mirror_list_stored.get():
+    #     ac_btn()
+    # else:
+    #     if math_symbol.get() == '+':
+    #         result = int(mirror_list_stored.get()) + int(''.join(mirror_list))
+    #         mirror_var.set(result)
+    #     if math_symbol.get() == '-':
+    #         result = int(mirror_list_stored.get()) - int(''.join(mirror_list))
+    #         mirror_var.set(result)
+    #     if math_symbol.get() == 'x':
+    #         result = int(mirror_list_stored.get()) * int(''.join(mirror_list))
+    #         mirror_var.set(result)
+    #     if math_symbol.get() == '÷':
+    #         result = int(mirror_list_stored.get()) / int(''.join(mirror_list))
+    #         mirror_var.set(result)
+    #     else:
+    #         print('ERROR ON "percentage_btn" FUNC')
     pass
 
 
 def division_btn():
-    mirror_show('÷')
+    mirror_list_stored.set(''.join(mirror_list))
+    mirror_list.clear()
+    math_symbol.set('÷')
 
 
 def multiply_btn():
-    mirror_show('x')
+    mirror_list_stored.set(''.join(mirror_list))
+    mirror_list.clear()
+    math_symbol.set('x')
 
 
 def minus_btn():
-    mirror_show('-')
+    mirror_list_stored.set(''.join(mirror_list))
+    mirror_list.clear()
+    math_symbol.set('-')
 
 
 def plus_btn():
@@ -80,7 +104,7 @@ def plus_btn():
 
 
 def dot_btn():
-    pass
+    mirror_show('.')
 
 
 def equal_btn():
@@ -99,13 +123,16 @@ def math_operation(symbol):
         result = int(mirror_list_stored.get()) + int(''.join(mirror_list))
         mirror_var.set(result)
     if symbol == '-':
-        mirror_var.set(str(int(''.join(mirror_list_stored)) - int(''.join(mirror_list))))
+        result = int(mirror_list_stored.get()) - int(''.join(mirror_list))
+        mirror_var.set(result)
     if symbol == 'x':
-        mirror_var.set(str(int(''.join(mirror_list_stored)) * int(''.join(mirror_list))))
+        result = int(mirror_list_stored.get()) * int(''.join(mirror_list))
+        mirror_var.set(result)
     if symbol == '÷':
-        mirror_var.set(str(int(''.join(mirror_list_stored)) / int(''.join(mirror_list))))
+        result = int(mirror_list_stored.get()) / int(''.join(mirror_list))
+        mirror_var.set(result)
     else:
-        print(math_symbol)
+        print('ERROR ON "math_operation" FUNC')
 
 
 # --- ROOT/HEAD ---
